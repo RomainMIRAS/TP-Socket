@@ -2,5 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <entry key="portServer">7854</entry>
-<entry key="ipServer">255.255.255.255</entry>
+<entry key="ipServer">127.0.0.1</entry>
 </properties>
