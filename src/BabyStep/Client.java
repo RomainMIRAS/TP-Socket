@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -19,9 +18,9 @@ public class Client {
 		String ipServer = prop.getProperty("ipServer");
 		int portServer = Integer.parseInt(prop.getProperty("portServer"));
 
-		System.out.println("Server is running...");
-		System.out.println("IP: " + ipServer);
-		System.out.println("Port: " + portServer);
+		System.out.println("Client is running...");
+		System.out.println("IP Server: " + ipServer);
+		System.out.println("Port Server: " + portServer);
 		
 		// connect to server
 		Socket soc = new Socket(ipServer, portServer);

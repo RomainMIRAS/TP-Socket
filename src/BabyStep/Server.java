@@ -38,6 +38,8 @@ public class Server {
 			if (dis != null) try { dis.close();} catch (Exception e) {}
 
 		}
+		
+		System.out.println("Server is down...");
 	}
 
 }
