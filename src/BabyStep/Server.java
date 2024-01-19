@@ -19,27 +19,21 @@ public class Server {
 		System.out.println("Server is running...");
 
 		ServerSocket listenSoc = new ServerSocket(portServer);
-
-		Socket soc = listenSoc.accept();
-		DataInputStream dis = null;
-		DataOutputStream dos = null;
-		try {
-			InputStream is = soc.getInputStream();
-			dis = new DataInputStream(is);
-			String clientName = dis.readUTF();
-			
-			OutputStream os = soc.getOutputStream();
-			dos = new DataOutputStream(os);
-			dos.writeUTF("Hello " + clientName);
-		} catch ( Exception e ) {
-
-		} finally {
-
-			if (dis != null) try { dis.close();} catch (Exception e) {}
-
+		while(true) {
+			Socket soc = listenSoc.accept();
+			if (soc == null) continue;;
+			DataInputStream dis = null;
+			DataOutputStream dos = null;
+				InputStream is = soc.getInputStream();
+				dis = new DataInputStream(is);
+				String clientName = dis.readUTF();
+				
+				OutputStream os = soc.getOutputStream();
+				dos = new DataOutputStream(os);
+				dos.writeUTF("Hello " + clientName);
+				System.out.println("End one transmission...");
 		}
-		
-		System.out.println("Server is down...");
+
 	}
 
 }
