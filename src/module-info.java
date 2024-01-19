@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author mirasr
+ *
+ */
+module TPSocket {
+}
