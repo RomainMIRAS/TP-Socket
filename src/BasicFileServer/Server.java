@@ -3,7 +3,7 @@ package BasicFileServer;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +12,18 @@ import java.net.Socket;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+
+/**
+ * 
+ * @author mirasr
+ * 
+ * Envoie des paquets : 
+ * Client -> Demande d'un nom de fichier
+ * Server -> Envoie un code de retour
+ * 		401 - GOOD -> Envoie du fichier
+ * 		404 - NOT FOUND -> FIN D'EXECUTION
+ * 		403 - Access Refused -> FIN D'EXECUTION
+ */
 public class Server {
 
 	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException {
@@ -36,8 +48,27 @@ public class Server {
 			String fileName = dis.readUTF();
 
 			OutputStream os = soc.getOutputStream();
-			FileInputStream fis = new FileInputStream(fileName);
+			FileInputStream fis = null;
 			dos = new DataOutputStream(os);
+
+			try {
+				fis = new FileInputStream(fileName);
+				dos.writeInt(401);
+				System.out.println("File found : " + fileName);
+			} catch (FileNotFoundException e) {
+				dos.writeInt(404);
+				System.out.println("File not found : " + fileName);
+				continue;
+			} catch (SecurityException e) {
+				dos.writeInt(403);
+				System.out.println("Access refused : " + fileName);
+				continue;
+			} catch (NullPointerException e) {
+				dos.writeInt(404);
+				System.out.println("File not found : " + fileName);
+				continue;
+			}
+			
 
 			byte[] data = fis.readAllBytes();
 			dos.writeInt(data.length);
