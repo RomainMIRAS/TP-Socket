@@ -13,6 +13,7 @@ import java.util.Properties;
  * @author mirasr
  * 
  * Envoie des paquets : 
+ * Client -> Envoie du nombre de bloc de 512 lu si il viens d'un récupération d'erreur
  * Client -> Demande d'un nom de fichier
  * Server -> Envoie un code de retour
  * 		401 - GOOD -> Envoie du fichier

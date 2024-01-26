@@ -69,6 +69,7 @@ public class ServerThread extends Thread {
 				while (bytesRead > 0) {
 					dos.write(data, 0, bytesRead);
 					bytesRead = fis.read(data, 0, data.length);
+					sleep(1000*5);
 				}
 				dos.flush();
 

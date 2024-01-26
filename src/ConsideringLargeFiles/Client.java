@@ -80,6 +80,7 @@ public class Client {
 					 /**
 					  * Solution pas très élégante, mais qui marche
 					  */
+					System.out.println("Server is dead");
 					soc.close();
 					soc = new Socket(ipServer, portServer);
 					os = soc.getOutputStream();
