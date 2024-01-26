@@ -42,7 +42,7 @@ public class Client {
 		// envoie mon nom
 		OutputStream os = soc.getOutputStream();
 		DataOutputStream dos = new DataOutputStream(os);
-		String nomfichier = "./src/file1.txt";
+		String nomfichier = "file1.txt";
 		dos.writeUTF(nomfichier);
 		
 		// recevoir code retour

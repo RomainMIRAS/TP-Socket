@@ -3,5 +3,6 @@
 <properties>
 <entry key="portServer">7854</entry>
 <entry key="ipServer">127.0.0.1</entry>
+<entry key="dataPathServer">./src/</entry>
 
 </properties>

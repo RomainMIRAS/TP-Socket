@@ -30,7 +30,8 @@ public class Server {
 		Properties prop = new Properties();
 		prop.loadFromXML(Server.class.getClassLoader().getResourceAsStream("info.xml"));
 		int portServer = Integer.parseInt(prop.getProperty("portServer"));
-
+		String dataPathServer = prop.getProperty("dataPathServer");
+		
 		System.out.println("Server is running...");
 
 		ServerSocket listenSoc = new ServerSocket(portServer);
@@ -52,7 +53,7 @@ public class Server {
 			dos = new DataOutputStream(os);
 
 			try {
-				fis = new FileInputStream(fileName);
+				fis = new FileInputStream(dataPathServer+fileName);
 				dos.writeInt(401);
 				System.out.println("File found : " + fileName);
 			} catch (FileNotFoundException e) {
