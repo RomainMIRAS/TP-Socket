@@ -1,4 +1,4 @@
-package MultiThreadedFileServer.v2;
+package ConsideringLargeFiles;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -62,10 +62,14 @@ public class ServerThread extends Thread {
 					continue;
 				}
 
-				byte[] data = fis.readAllBytes();
-				dos.writeInt(data.length);
-				dos.write(data);
+				// Envoie par bloc de 512 octets
+				byte[] data = new byte[512];
+				int bytesRead;
+				while ((bytesRead = fis.read(data, 0, data.length)) > 0) {
+					dos.write(data, 0, bytesRead);
+				}
 				dos.flush();
+
 				fis.close();
 				System.out.println("Sending " + fileName + " Done...");
 

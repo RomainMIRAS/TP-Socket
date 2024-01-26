@@ -31,6 +31,7 @@ public class Server {
 				OutputStream os = soc.getOutputStream();
 				dos = new DataOutputStream(os);
 				dos.writeUTF("Hello " + clientName);
+				dos.flush();
 				System.out.println("End one transmission...");
 		}
 

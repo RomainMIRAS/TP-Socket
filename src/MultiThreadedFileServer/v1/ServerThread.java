@@ -55,7 +55,7 @@ public class ServerThread extends Thread {
 			byte[] data = fis.readAllBytes();
 			dos.writeInt(data.length);
 			dos.write(data);
-
+			dos.flush();
 			fis.close();
 			System.out.println("Sending " + fileName + " Done...");
 			
