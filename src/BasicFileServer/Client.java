@@ -30,6 +30,7 @@ public class Client {
 
 		prop.loadFromXML(Server.class.getClassLoader().getResourceAsStream("info.xml"));
 		String ipServer = prop.getProperty("ipServer");
+		String dataPathClient = prop.getProperty("dataPathClient");
 		int portServer = Integer.parseInt(prop.getProperty("portServer"));
 
 		System.out.println("Client is running...");
@@ -59,7 +60,7 @@ public class Client {
 			dis.readFully(b);
 			
 			// créer fichier et écrire
-			FileOutputStream fos = new FileOutputStream(nomfichier+"Client");
+			FileOutputStream fos = new FileOutputStream(dataPathClient+nomfichier);
 			fos.write(b);
 			
 			fos.close();
