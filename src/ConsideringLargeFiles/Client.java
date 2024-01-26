@@ -44,6 +44,7 @@ public class Client {
 		OutputStream os = soc.getOutputStream();
 		DataOutputStream dos = new DataOutputStream(os);
 		String nomfichier = "bigfile.txt";
+		dos.writeInt(0);
 		dos.writeUTF(nomfichier);
 		
 		// recevoir code retour
@@ -59,10 +60,44 @@ public class Client {
 			int nbOctetsLus = 0;
 			File file = new File(dataPathClient + nomfichier);
 			FileOutputStream fos = new FileOutputStream(file);
+			int numberOfReadedBlocks = 0;
 
-			while ((nbOctetsLus = dis.read(buffer)) != -1) {
-				fos.write(buffer, 0, nbOctetsLus);
-			}
+			do {
+				try {
+					nbOctetsLus = dis.read(buffer);
+					numberOfReadedBlocks++;
+				} catch (IOException e) { // si le serveur est mort 
+					/**
+					 * 1. Fermer le socket
+					 * 2. Créer un nouveau socket
+					 * 3. Envoyer le nombre de blocks déjà lus
+					 * 4. Envoyer le nom du fichier
+					 * 5. Attendre le code retour
+					 * 6. Si code retour == 401, continuer la lecture
+					 * 7. Sinon, afficher le message d'erreur et sortir du programme
+					 */
+					
+					 /**
+					  * Solution pas très élégante, mais qui marche
+					  */
+					soc.close();
+					soc = new Socket(ipServer, portServer);
+					os = soc.getOutputStream();
+					dos = new DataOutputStream(os);
+					dos.writeInt(numberOfReadedBlocks);
+					dos.writeUTF(nomfichier);
+					is = soc.getInputStream();
+					dis = new DataInputStream(is);
+					code = dis.readInt();
+					if (code == 401) {
+						nbOctetsLus = dis.read(buffer);
+					} else {
+						System.out.println("File not found : " + nomfichier);
+						// Sortie de programme
+						return;
+					}
+				}				
+			} while (nbOctetsLus != -1);
 
 			fos.close();
 			

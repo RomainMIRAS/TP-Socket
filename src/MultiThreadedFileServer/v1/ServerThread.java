@@ -61,6 +61,14 @@ public class ServerThread extends Thread {
 			
 		} catch (Exception e) {
 			System.err.println("Should Not Happens ! ");
+		} finally {
+			try {
+				dis.close();
+				dos.close();
+				soc.close();
+			} catch (Exception e) {
+				System.err.println("Should Not Happens ! ");
+			}
 		}
 	}
 }
