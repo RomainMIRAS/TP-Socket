@@ -19,7 +19,7 @@ public class ServerThread extends Thread {
 	}
 
 	@Override
-	public void run(){
+	public void run() {
 		while (true) {
 
 			Socket soc;
@@ -30,7 +30,7 @@ public class ServerThread extends Thread {
 				e1.printStackTrace();
 				continue;
 			}
-			
+
 			DataInputStream dis = null;
 			DataOutputStream dos = null;
 
@@ -45,7 +45,7 @@ public class ServerThread extends Thread {
 				dos = new DataOutputStream(os);
 
 				try {
-					fis = new FileInputStream(dataPathServer+fileName);
+					fis = new FileInputStream(dataPathServer + fileName);
 					dos.writeInt(401);
 					System.out.println("File found : " + fileName);
 				} catch (FileNotFoundException e) {
@@ -64,9 +64,11 @@ public class ServerThread extends Thread {
 
 				// Envoie par bloc de 512 octets
 				byte[] data = new byte[512];
-				int bytesRead;
-				while ((bytesRead = fis.read(data, 0, data.length)) > 0) {
+				int nb_block_done = dis.readInt();
+				int bytesRead = fis.read(data, nb_block_done*512, data.length);
+				while (bytesRead > 0) {
 					dos.write(data, 0, bytesRead);
+					bytesRead = fis.read(data, 0, data.length);
 				}
 				dos.flush();
 
