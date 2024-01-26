@@ -5,5 +5,6 @@
 <entry key="ipServer">127.0.0.1</entry>
 <entry key="dataPathServer">./src/serverData/</entry>
 <entry key="dataPathClient">./src/userData/</entry>
-
+<entry key="numberServerThread">10</entry>
+<entry key="buffSize">20</entry>
 </properties>
